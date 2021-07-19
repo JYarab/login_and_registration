@@ -28,17 +28,17 @@
                 <form class="col-10" action="/create_user" method="POST">
                     {% csrf_token %}
                     <label for="first_name" class="form-label mt-3">First Name:</label>
-                    <input type="text" class="form-control" name="first_name" id="first_name">
+                    <input type="text" class="form-control" name="first_name" id="first_name" required minlength="2">
                     <label for="last_name" class="form-label mt-3">Last Name:</label>
-                    <input type="text" class="form-control" name="last_name" id="last_name">
+                    <input type="text" class="form-control" name="last_name" id="last_name" required minlength="2"> 
                     <label for="email" class="form-label mt-3">Email:</label>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <input type="email" class="form-control" name="email" id="email" required pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$">
                     <label for="birth_date" class="form-label mt-3">Date of Birth:</label>
-                    <input type="date" class="form-control" name="birth_date" id="birth_date">
+                    <input type="date" class="form-control" name="birth_date" id="birth_date" required>
                     <label for="password" class="form-label mt-3">Password:</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" class="form-control" name="password" id="password" required>
                     <label for="conf_pass" class="form-label mt-3">Confirm PW:</label>
-                    <input type="password" class="form-control" name="conf_pass" id="conf_pass">
+                    <input type="password" class="form-control" name="conf_pass" id="conf_pass" required>
                     <button class="btn btn-secondary mt-3">Register</button>
                 </form>
             </div>
@@ -57,9 +57,9 @@
                 <form class="col-10" action="/login" method="POST">
                     {% csrf_token %}
                     <label for="email" class="form-label mt-3">Email:</label>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <input type="email" class="form-control" name="email" id="email" required pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$">
                     <label for="password" class="form-label mt-3">Password:</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <input type="password" class="form-control" name="password" id="password" required>
                     <button class="btn btn-secondary mt-3">Log In</button>
                 </form>
             </div>

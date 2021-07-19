@@ -9,6 +9,7 @@ import bcrypt
 def index(request):
     return render(request, 'index.html')
 
+#validate and create user
 def create_user(request):
     errors = User.objects.basic_validator(request.POST)
 
@@ -17,7 +18,7 @@ def create_user(request):
             messages.error(request, value)
         return redirect('/')
     
-    #no errors create new user
+    #no errors hashpw and create new user with normalized email to all lower
     hashed_pw = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
 
     new_user = User.objects.create(
@@ -30,16 +31,17 @@ def create_user(request):
     request.session['logged_in_user'] = new_user.id
     return redirect('/user_page')
 
+#check for logged in user and render or redirect
 def user_page(request):
-    if 'logged_in_user' in request.session:
-        context = {
-            'user': User.objects.get(id=request.session['logged_in_user'])
-        }
-        return render(request, 'user_page.html', context)
+    if 'logged_in_user' not in request.session:
+        return redirect('/')
     
-    return redirect('/')
+    context = {
+    'user': User.objects.get(id=request.session['logged_in_user'])
+    }
+    return render(request, 'user_page.html', context)
 
-
+#check for user then confirm password and put user in session
 def login(request):
     email=(request.POST['email']).lower()
     users = User.objects.filter(email=email)
